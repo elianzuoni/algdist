@@ -1,10 +1,14 @@
 // UDP wrapper
-#pragma once
+#ifndef UDP_H
+#define UDP_H
 
-#include<unistd.h>
-#include<arpa/inet.h>
-#include<sys/socket.h>
-#include<sys/types.h>
+#include <unistd.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <sys/types.h>
 
 
 namespace udp
@@ -21,14 +25,16 @@ namespace udp
 			
 			/*Sends message to specified recipient.
 			  Returns number of bytes sent, or -1.*/
-			ssize_t send(void *buf, size_t len, char *destIP, int destPort);
+			int send(void *buf, size_t len, char *destIP, int destPort);
 			/*Blocks and listens for any incoming datagram.
 			  Saves sender's info in srcIP and srcPort.
               Returns number of bytes received, or -1.*/
-			ssize_t receive(void *buf, size_t len, char *srcIP, int& srcPort);
+			int receive(void *buf, size_t len, char *srcIP, int *srcPort);
 		
 		private:
 			/*The socket descriptor*/
 			int fd;
-	}
+	};
 }
+
+#endif
